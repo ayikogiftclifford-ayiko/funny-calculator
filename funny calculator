@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>😂 LAUGHING CALCULATOR 🤣</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: backgroundPulse 5s infinite;
+        }
+
+        @keyframes backgroundPulse {
+            0% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+            50% { background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%); }
+            100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        }
+
+        .calculator {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 90%;
+            border: 5px solid #ffd700;
+            animation: bounceIn 1s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            background: #ffd700;
+            padding: 15px;
+            border-radius: 50px;
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #ff4757;
+            text-shadow: 3px 3px 0 #4a4a4a;
+        }
+
+        .header h1 span {
+            display: inline-block;
+            animation: spin 2s infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .laugh-zone {
+            background: #f0f0f0;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 2.5em;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 3px dashed #ff6b6b;
+        }
+
+        .laugh-message {
+            font-size: 1.2em;
+            color: #333;
+            margin-top: 10px;
+            animation: glow 1.5s infinite;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #ff6b6b; }
+            50% { text-shadow: 0 0 20px #ff6b6b, 0 0 30px #ffd700; }
+            100% { text-shadow: 0 0 5px #ff6b6b; }
+        }
+
+        .display {
+            background: #222;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 3px solid #ffd700;
+        }
+
+        #result {
+            width: 100%;
+            font-size: 2.5em;
+            font-family: 'Digital', monospace;
+            background: transparent;
+            border: none;
+            color: #0f0;
+            text-align: right;
+            outline: none;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .input-box {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 10px;
+            border: 2px solid #4a4a4a;
+        }
+
+        .input-box label {
+            display: block;
+            font-size: 1.2em;
+            color: #ff4757;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.5em;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        .input-box input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            animation: inputPulse 0.5s infinite;
+        }
+
+        @keyframes inputPulse {
+            0% { box-shadow: 0 0 5px #ff6b6b; }
+            50% { box-shadow: 0 0 20px #ff6b6b; }
+            100% { box-shadow: 0 0 5px #ff6b6b; }
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 20px;
+            font-size: 2em;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Comic Sans MS', cursive;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            animation: wobble 0.5s;
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: translateX(0); }
+            15% { transform: translateX(-5px) rotate(-5deg); }
+            30% { transform: translateX(5px) rotate(5deg); }
+            45% { transform: translateX(-3px) rotate(-3deg); }
+            60% { transform: translateX(3px) rotate(3deg); }
+            75% { transform: translateX(-1px) rotate(-1deg); }
+        }
+
+        .btn.operation {
+            background: #ff6b6b;
+            color: white;
+            box-shadow: 0 5px 0 #c92a2a;
+        }
+
+        .btn.number {
+            background: #4ecdc4;
+            color: white;
+            box-shadow: 0 5px 0 #2b8c84;
+        }
+
+        .btn.special {
+            background: #ffd700;
+            color: #333;
+            box-shadow: 0 5px 0 #b8860b;
+            font-size: 1.5em;
+        }
+
+        .btn:active {
+            transform: translateY(5px);
+            box-shadow: none;
+        }
+
+        .joke-box {
+            background: #ffd700;
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            color: #333;
+            font-weight: bold;
+            border: 3px solid #ff4757;
+        }
+
+        .joke-box::before {
+            content: "😂";
+            margin-right: 10px;
+            animation: spin 2s infinite;
+        }
+
+        .joke-box::after {
+            content: "🤣";
+            margin-left: 10px;
+            animation: spin 2s infinite reverse;
+        }
+
+        .emoji-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 2em;
+            animation: fall 3s linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        .insult-history {
+            background: #f0f0f0;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 20px;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .insult-history h3 {
+            color: #ff4757;
+            margin-bottom: 5px;
+        }
+
+        .history-item {
+            padding: 5px;
+            margin: 2px 0;
+            background: white;
+            border-radius: 5px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="emoji-rain" id="emojiRain"></div>
+
+    <div class="calculator" id="calculator">
+        <div class="header">
+            <h1>
+                <span>😂</span> LAUGHING CALCULATOR <span>🤣</span>
+            </h1>
+        </div>
+
+        <div class="laugh-zone" id="laughZone">
+            <div id="laughEmojis">🤣😂😭💀</div>
+            <div class="laugh-message" id="laughMessage">Ready to laugh at you!</div>
+        </div>
+
+        <div class="display">
+            <input type="text" id="result" readonly value="0">
+        </div>
+
+        <div class="input-group">
+            <div class="input-box">
+                <label>First Number 📝</label>
+                <input type="number" id="num1" placeholder="Enter number" value="0">
+            </div>
+            <div class="input-box">
+                <label>Second Number 📝</label>
+                <input type="number" id="num2" placeholder="Enter number" value="0">
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn operation" onclick="calculate('add')">➕</button>
+            <button class="btn operation" onclick="calculate('subtract')">➖</button>
+            <button class="btn operation" onclick="calculate('multiply')">✖️</button>
+            <button class="btn operation" onclick="calculate('divide')">➗</button>
+            <button class="btn operation" onclick="calculate('power')">⚡</button>
+            <button class="btn operation" onclick="calculate('sqrt')">√</button>
+            <button class="btn special" onclick="randomInsult()">🎲</button>
+            <button class="btn special" onclick="clearAll()">🗑️</button>
+        </div>
+
+        <div class="joke-box" id="currentJoke">
+            Press a button and I'll laugh at you!
+        </div>
+
+        <div class="insult-history" id="insultHistory">
+            <h3>📜 Insult History 📜</h3>
+            <div id="historyContainer"></div>
+        </div>
+
+        <footer>
+            <marquee behavior="alternate">😂 WARNING: This calculator will hurt your feelings! 🤣</marquee>
+        </footer>
+    </div>
+
+    <script>
+        // Audio context for sound effects (browser-compatible)
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
+
+        // Laughing emojis and sounds
+        const laughEmojis = ['😂', '🤣', '😭', '💀', '🤪', '😹', '👻', '🤡', '🎃', '😈'];
+        const insults = [
+            "Even a potato would calculate faster! 🥔",
+            "My grandma's abacus is more advanced! 👵",
+            "Is that really the best you can do? 🤡",
+            "I've seen smarter calculations from a rock! 🪨",
+            "You call that math? PATHETIC! 💀",
+            "My circuits hurt from laughing at you! 😹",
+            "Did you learn math from a cereal box? 🥣",
+            "That's not even wrong! 😂",
+            "Your math skills are making me dizzy! 🌀",
+            "Even Siri is laughing at you right now! 📱",
+            "I've calculated that you're hopeless! 🔮",
+            "Warning: Low intelligence detected! 🚨",
+            "Math isn't for everyone, clearly! 🙈",
+            "You just broke the calculator! 😱",
+            "Negative points for creativity! ⭐"
+        ];
+
+        const operationJokes = {
+            add: ["Addition? How... basic!", "Even babies can add!", "Plus what? Plus nothing!"],
+            subtract: ["Subtraction? Taking away from humanity!", "Negative vibes only!", "You subtracted my respect!"],
+            multiply: ["Multiplication? How fancy!", "Big numbers, small brain!", "Times tables giving you trouble?"],
+            divide: ["Division? Let's split your IQ!", "Dividing by zero = disaster!", "Quotient of confusion!"],
+            power: ["Powers? Trying to look smart?", "Exponential laughter!", "To the power of pathetic!"],
+            sqrt: ["Square roots? How deep!", "Imaginary numbers for imaginary skills!", "Root of all evil!"]
+        };
+
+        let insultHistory = [];
+
+        function playLaugh(intensity = 1) {
+            // Visual laugh
+            const laughZone = document.getElementById('laughZone');
+            const laughEmojisEl = document.getElementById('laughEmojis');
+            const laughMessage = document.getElementById('laughMessage');
+            
+            // Random emoji combination
+            const emojis = Array(intensity + 2).fill(0)
+                .map(() => laughEmojis[Math.floor(Math.random() * laughEmojis.length)])
+                .join('');
+            
+            laughEmojisEl.textContent = emojis;
+            laughEmojisEl.style.animation = 'spin 0.5s ease';
+            setTimeout(() => {
+                laughEmojisEl.style.animation = '';
+            }, 500);
+
+            // Laugh messages
+            const laughs = [
+                "HAHAHAHA!",
+                "😂🤣😂🤣",
+                "*WHEEZE*",
+                "LOL! ROFL!",
+                "💀 DEAD 💀"
+            ];
+            laughMessage.textContent = laughs[Math.floor(Math.random() * laughs.length)];
+
+            // Audio laugh (simple beep pattern)
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            
+            // Create laugh sound effect
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            osc.type = 'sawtooth';
+            osc.frequency.value = 200 + Math.random() * 200;
+            
+            gainNode.gain.value = 0.1;
+            
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            osc.start();
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.3);
+            osc.stop(audioCtx.currentTime + 0.3);
+
+            // Rain emojis
+            rainEmojis(intensity * 5);
+        }
+
+        function rainEmojis(count) {
+            const container = document.getElementById('emojiRain');
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'emoji';
+                    emoji.textContent = laughEmojis[Math.floor(Math.random() * laughEmojis.length)];
+                    emoji.style.left = Math.random() * 100 + '%';
+                    emoji.style.animationDuration = (2 + Math.random() * 2) + 's';
+                    emoji.style.fontSize = (20 + Math.random() * 30) + 'px';
+                    container.appendChild(emoji);
+                    
+                    setTimeout(() => {
+                        emoji.remove();
+                    }, 3000);
+                }, i * 100);
+            }
+        }
+
+        function addToHistory(insult) {
+            insultHistory.unshift(insult);
+            if (insultHistory.length > 5) insultHistory.pop();
+            
+            const historyContainer = document.getElementById('historyContainer');
+            historyContainer.innerHTML = insultHistory.map(insult => 
+                `<div class="history-item">${insult}</div>`
+            ).join('');
+        }
+
+        function randomInsult() {
+            const insult = insults[Math.floor(Math.random() * insults.length)];
+            document.getElementById('currentJoke').textContent = insult;
+            addToHistory(insult);
+            playLaugh(3);
+        }
+
+        function calculate(operation) {
+            const num1 = parseFloat(document.getElementById('num1').value) || 0;
+            const num2 = parseFloat(document.getElementById('num2').value) || 0;
+            const resultInput = document.getElementById('result');
+            let result;
+            let joke = '';
+
+            // Special cases for laughter
+            if (operation === 'divide' && num2 === 0) {
+                joke = "DIVIDE BY ZERO?! You just created a black hole! 🌌";
+                playLaugh(5);
+                result = '♾️ INFINITY';
+                resultInput.value = result;
+                document.getElementById('currentJoke').textContent = joke;
+                addToHistory(joke);
+                return;
+            }
+
+            if (operation === 'sqrt' && num1 < 0) {
+                joke = "NEGATIVE SQUARE ROOT?! IMAGINARY NUMBERS! 👻";
+                playLaugh(5);
+                result = '🤔 IMAGINARY';
+                resultInput.value = result;
+                document.getElementById('currentJoke').textContent = joke;
+                addToHistory(joke);
+                return;
+            }
+
+            // Perform calculation
+            switch(operation) {
+                case 'add':
+                    result = num1 + num2;
+                    joke = operationJokes.add[Math.floor(Math.random() * operationJokes.add.length)];
+                    break;
+                case 'subtract':
+                    result = num1 - num2;
+                    joke = operationJokes.subtract[Math.floor(Math.random() * operationJokes.subtract.length)];
+                    break;
+                case 'multiply':
+                    result = num1 * num2;
+                    joke = operationJokes.multiply[Math.floor(Math.random() * operationJokes.multiply.length)];
+                    break;
+                case 'divide':
+                    result = num1 / num2;
+                    joke = operationJokes.divide[Math.floor(Math.random() * operationJokes.divide.length)];
+                    break;
+                case 'power':
+                    result = Math.pow(num1, num2);
+                    joke = operationJokes.power[Math.floor(Math.random() * operationJokes.power.length)];
+                    break;
+                case 'sqrt':
+                    result = Math.sqrt(num1);
+                    joke = operationJokes.sqrt[Math.floor(Math.random() * operationJokes.sqrt.length)];
+                    break;
+            }
+
+            // Add some random mockery based on result
+            if (result > 1000) {
+                joke += " WOW! BIG NUMBER! 🚀";
+                playLaugh(4);
+            } else if (result < 0) {
+                joke += " NEGATIVE! Like your attitude! 😈";
+                playLaugh(3);
+            } else if (Number.isInteger(result)) {
+                joke += " A whole number! How neat! ✨";
+                playLaugh(2);
+            } else {
+                joke += " Decimals? How precise! 📐";
+                playLaugh(2);
+            }
+
+            // Format result
+            resultInput.value = result.toFixed(2);
+            document.getElementById('currentJoke').textContent = joke;
+            addToHistory(joke);
+            
+            // Shake calculator on big results
+            if (result > 10000) {
+                document.getElementById('calculator').style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    document.getElementById('calculator').style.animation = '';
+                }, 500);
+            }
+        }
+
+        function clearAll() {
+            document.getElementById('num1').value = '0';
+            document.getElementById('num2').value = '0';
+            document.getElementById('result').value = '0';
+            document.getElementById('currentJoke').textContent = 'Cleared! Like your brain! 🧹';
+            playLaugh(1);
+        }
+
+        // Add keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '+' || e.key === '=') calculate('add');
+            if (e.key === '-') calculate('subtract');
+            if (e.key === '*') calculate('multiply');
+            if (e.key === '/') calculate('divide');
+            if (e.key === '^') calculate('power');
+            if (e.key === 'r' || e.key === 'R') calculate('sqrt');
+            if (e.key === 'c' || e.key === 'C') clearAll();
+            if (e.key === 'i' || e.key === 'I') randomInsult();
+        });
+
+        // Welcome message
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('currentJoke').textContent = "Welcome, human! Prepare to be mocked! 😈";
+                playLaugh(2);
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
